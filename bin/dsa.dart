@@ -4,6 +4,8 @@ void main(List<String> arguments) {
   final tree = createExampleTree();
   print(tree);
   if (tree.contains(5)) print('Found 5');
+  tree.remove(3);
+  print(tree);
 }
 
 BinarySearchTree<int> createExampleTree() {

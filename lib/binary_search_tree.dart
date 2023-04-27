@@ -65,6 +65,54 @@ class BinarySearchTree<E extends Comparable<dynamic>> {
     return false;
   }
 
+  /// - Removing a leaf node is straightforward. Simply detach the leaf node.
+  /// - When removing node with *one* child, We'll need to reconnect that child
+  ///   with the rest of the tree (aka to elder parent)
+  /// - To removing nodes with *two* children, we'll implement a clever
+  ///   workaround by performing a swap. when removing a node with two children,
+  ///   replacing the node we removed with the smallest node in the right
+  ///   subtree. Based on the principles of BST, this is the leftmost node of
+  ///   the right subtree.
+  void remove(E value) {
+    root = _remove(root, value);
+  }
+
+  BinaryNode<E>? _remove(BinaryNode<E>? node, value) {
+    if (node == null) return null;
+    if (value == node.value) {
+      /// - Remove leaf node by returning null, thereby removing the current node
+      if (node.leftChild == null && node.rightChild == null) {
+        return null;
+      }
+
+      /// - Removing node with one child
+      /// If the node has no left child, we return [node.rightChild] to
+      /// reconnect the right subtree.
+      /// If the node has no right child, we return [node.leftChild] to
+      /// reconnect the left subtree.
+      if (node.leftChild == null) return node.rightChild;
+      if (node.rightChild == null) return node.leftChild;
+
+      /// - Removing node with two children
+      /// We replace the node's value with the smallest value from the right
+      /// subtree, the call remove on the right child to remove this swapped
+      /// value.
+      node.value = node.rightChild!.min.value;
+      node.rightChild = _remove(node.rightChild, node.value);
+    } else if (value.compareTo(node.value) < 0) {
+      node.leftChild = _remove(node.leftChild, value);
+    } else {
+      node.rightChild = _remove(node.rightChild, value);
+    }
+    return node;
+  }
+
   @override
   String toString() => root.toString();
+}
+
+extension _MinFinder<E> on BinaryNode<E> {
+  /// To find the minimum value in a BST, we just need to find the leftmost node
+  /// in the tree.
+  BinaryNode<E> get min => leftChild?.min ?? this;
 }
