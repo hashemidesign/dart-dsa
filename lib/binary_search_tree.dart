@@ -7,11 +7,11 @@
 // is faster than linear data structures such as lists and linked lists.
 //
 // Balanced vs. Unbalanced Trees:
-// * A balanced tree is a tree in which the heights of the left and right 
-//   subtrees of every node differ by at most one. 
-// * An unbalanced tree is a tree in which the heights of the left and right 
+// * A balanced tree is a tree in which the heights of the left and right
+//   subtrees of every node differ by at most one.
+// * An unbalanced tree is a tree in which the heights of the left and right
 //   subtrees of some nodes differ significantly.
-// An unbalanced tree effects performance (it may ends to O(n) in some 
+// An unbalanced tree effects performance (it may ends to O(n) in some
 // situations)
 // You can create structures known as self-balanced trees which is called as
 // AVL Trees.
@@ -34,7 +34,7 @@ class BinarySearchTree<E extends Comparable<dynamic>> {
 
   // This is a recursive method.
   BinaryNode<E> _insertAt(BinaryNode<E>? node, E value) {
-    // if node is [null], we have found the insertion point and return the 
+    // if node is [null], we have found the insertion point and return the
     // new [BinaryNode].
     if (node == null) return BinaryNode(value);
 
@@ -46,10 +46,23 @@ class BinarySearchTree<E extends Comparable<dynamic>> {
       node.rightChild = _insertAt(node.rightChild, value);
     }
 
-    // This makes assignments of the form [node = _insertAt(node, value)] 
+    // This makes assignments of the form [node = _insertAt(node, value)]
     // possible as _insertAt will either create node, if it was null, or return
     // node, if it was not null.
     return node;
+  }
+
+  bool contains(E value) {
+    var current = root;
+    while (current != null) {
+      if (current.value == value) return true;
+      if (value.compareTo(current.value) < 0) {
+        current = current.leftChild;
+      } else {
+        current = current.rightChild;
+      }
+    }
+    return false;
   }
 
   @override
