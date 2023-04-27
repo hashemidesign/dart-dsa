@@ -9,6 +9,8 @@ void main(List<String> arguments) {
   tree.remove(3);
   print(tree);
   print("equality check before removal: ${tree.isEqualTo(tree2)}");
+  print(
+      "second tree is superset of first tree: ${tree2.containsSubtree(tree)}");
 }
 
 BinarySearchTree<int> createExampleTree() {

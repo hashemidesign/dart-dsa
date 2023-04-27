@@ -118,7 +118,7 @@ extension _MinFinder<E> on BinaryNode<E> {
 }
 
 extension TreeEquality on BinarySearchTree {
-  /// Check if our BST tree is equal to another BST tree.
+  /// Check if the current tree is equal to another BST tree.
   /// ``` dart
   /// tree.isEqualTo(anotherBSTTree)
   /// ```
@@ -133,5 +133,20 @@ extension TreeEquality on BinarySearchTree {
     return first.value == second.value &&
         _isEqualTo(first.leftChild, second.leftChild) &&
         _isEqualTo(first.rightChild, second.rightChild);
+  }
+
+  /// Check if the current tree contains all the elements of another tree (In
+  /// other words, the values in the current tree must be a superset of the
+  /// values of the other tree.)
+  bool containsSubtree(BinarySearchTree subtree) {
+    Set set = {};
+    root?.traverseInOrder((value) {
+      set.add(value);
+    });
+    bool isEqual = true;
+    subtree.root?.traverseInOrder((value) {
+      isEqual = isEqual && set.contains(value);
+    });
+    return isEqual;
   }
 }
