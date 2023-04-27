@@ -46,3 +46,33 @@ class BinaryNode<T> {
     return '$a$b$c';
   }
 }
+
+extension Checker<E extends Comparable<dynamic>> on BinaryNode<E> {
+  // Finding if a tree is type of the BST:
+  // The time complexity of this checker is O(n) since we need to traverse the
+  // entire tree once. There is alse an O(n) space cost since we're making n 
+  // recursive calls.
+  bool isBinarySearchTree() {
+    return _isBST(this, min: null, max: null);
+  }
+
+  bool _isBST(BinaryNode<E>? tree, {E? min, E? max}) {
+    // This is the base case. if tree is null, then there are no nodes to
+    // inspect. A null node is a BST.
+    if (tree == null) return true;
+    // This is essentially a bounds check. if the current value exceeds the
+    //bounds of min and max, the current node violates BST rules.
+    if (min != null && tree.value.compareTo(min) < 0) return false;
+    if (max != null && tree.value.compareTo(max) >= 0) return false;
+    // This statement contains the recursive calls. When traversing through the
+    // left children, the current value is passed in as the max value. This is
+    // because any nodes on the left side cannot be greater than the parent.
+    // Conversely, when traversing to the right, the min value updated to the
+    // current value. Any nodes on the right side must be grater or equal to the
+    // parent.
+    // If any of the recursive calls evaluate false, the false value will
+    // propagate back to the top.
+    return _isBST(tree.leftChild, min: min, max: tree.value) &&
+        _isBST(tree.rightChild, min: tree.value, max: max);
+  }
+}
