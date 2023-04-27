@@ -1,5 +1,17 @@
-import 'package:dsa/dsa.dart' as dsa;
+import 'package:dsa/binary_search_tree.dart';
 
 void main(List<String> arguments) {
-  print('Hello world: ${dsa.calculate()}!');
+  final tree = createExampleTree();
+  print(tree);
+}
+
+BinarySearchTree<int> createExampleTree() {
+  var tree = BinarySearchTree<int>();
+  tree.insert(3);
+  tree.insert(1);
+  tree.insert(4);
+  tree.insert(0);
+  tree.insert(2);
+  tree.insert(5);
+  return tree;
 }
