@@ -2,10 +2,13 @@ import 'package:dsa/binary_search_tree.dart';
 
 void main(List<String> arguments) {
   final tree = createExampleTree();
+  final tree2 = createExampleTree();
   print(tree);
   if (tree.contains(5)) print('Found 5');
+  print("equality check before removal: ${tree.isEqualTo(tree2)}");
   tree.remove(3);
   print(tree);
+  print("equality check before removal: ${tree.isEqualTo(tree2)}");
 }
 
 BinarySearchTree<int> createExampleTree() {

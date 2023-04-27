@@ -116,3 +116,22 @@ extension _MinFinder<E> on BinaryNode<E> {
   /// in the tree.
   BinaryNode<E> get min => leftChild?.min ?? this;
 }
+
+extension TreeEquality on BinarySearchTree {
+  /// Check if our BST tree is equal to another BST tree.
+  /// ``` dart
+  /// tree.isEqualTo(anotherBSTTree)
+  /// ```
+  bool isEqualTo(BinarySearchTree other) {
+    return _isEqualTo(root, other.root);
+  }
+
+  bool _isEqualTo(BinaryNode? first, BinaryNode? second) {
+    if (first == null || second == null) return first == null && second == null;
+    // We check the value of first and the second nodes for equality. We also
+    // recursively check the left children and the right children for equality.
+    return first.value == second.value &&
+        _isEqualTo(first.leftChild, second.leftChild) &&
+        _isEqualTo(first.rightChild, second.rightChild);
+  }
+}
