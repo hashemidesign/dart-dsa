@@ -22,6 +22,19 @@ class AvlNode<T> {
     action(value);
   }
 
+  /// The [height] of a node is the **longest** distance from the current node
+  /// to a leaf node.
+  int height = 0;
+
+  /// The height of the left and right children of each node must differ at most
+  /// by 1. this number is known as the **balance factor**.
+  /// a [balanceFactor] of 2 or -2 or something more extreme indicates an 
+  /// unbalanced tree.
+  int get balanceFactor => leftHeight - rightHeight;
+  // If a particular child is null, its height is considered to be -1.
+  int get leftHeight => leftChild?.height ?? -1;
+  int get rightHeight => rightChild?.height ?? -1;
+
   @override
   String toString() {
     return _diagram(this);
