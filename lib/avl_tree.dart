@@ -1,5 +1,8 @@
 // In 1962, Adelson-Velsky and Landis came up with the first self-balancing
 // binary search tree: The AVL Tree.
+// * Other self-balancing BSTs are: 
+//   - red-black tree
+//   - splay tree
 // A balanced tree is the key to optimizing the performance of the BST. three
 // main states of balance tree are:
 // 1- Perfect Balance: this means every level of the tree is filled with nodes,
