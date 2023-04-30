@@ -38,7 +38,13 @@ class AvlTree<E extends Comparable<dynamic>> {
     } else {
       node.rightChild = _insertAt(node.rightChild, value);
     }
-    return node;
+    // Instead of returning the node directly after inserting, we pass it into 
+    // balanced method. Passing it ensures every node in the call stack is 
+    // checked for balancing issues. We also update the node's height.
+    final balancedNode = balanced(node);
+    balancedNode.height =
+        1 + math.max(balancedNode.leftHeight, balancedNode.rightHeight);
+    return balancedNode;
   }
 
   void remove(E value) {
@@ -64,7 +70,12 @@ class AvlTree<E extends Comparable<dynamic>> {
     } else {
       node.rightChild = _remove(node.rightChild, value);
     }
-    return node;
+    // Just like insertion, we check for balancing and also recalculating the
+    // height.
+    final balancedNode = balanced(node);
+    balancedNode.height =
+        1 + math.max(balancedNode.leftHeight, balancedNode.rightHeight);
+    return balancedNode;
   }
 
   bool contains(E value) {
@@ -144,7 +155,7 @@ class AvlTree<E extends Comparable<dynamic>> {
         // child. This means that we need to use either [left] or [right-left]
         // rotations.
         final right = node.rightChild;
-        if (right != null && right.balanceFactor == -1) {
+        if (right != null && right.balanceFactor == 1) {
           return rightLeftRotate(node);
         } else {
           return leftRotate(node);

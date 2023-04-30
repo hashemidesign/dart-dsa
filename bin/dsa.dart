@@ -1,16 +1,14 @@
+import 'package:dsa/avl_tree.dart';
 import 'package:dsa/binary_search_tree.dart';
 
 void main(List<String> arguments) {
-  final tree = createExampleTree();
-  final tree2 = createExampleTree();
+  final tree = AvlTree<int>();
+  for (var i = 0; i < 15; i++) {
+    tree.insert(i);
+  }
   print(tree);
-  if (tree.contains(5)) print('Found 5');
-  print("equality check before removal: ${tree.isEqualTo(tree2)}");
-  tree.remove(3);
+  tree.remove(11);
   print(tree);
-  print("equality check before removal: ${tree.isEqualTo(tree2)}");
-  print(
-      "second tree is superset of first tree: ${tree2.containsSubtree(tree)}");
 }
 
 BinarySearchTree<int> createExampleTree() {
