@@ -1,26 +1,15 @@
-class AvlNode<T> {
+import 'package:dsa/traversable_binary_node.dart';
+
+class AvlNode<T> extends TraversableBinaryNode<T> {
   AvlNode(this.value);
+  @override
   T value;
+
+  @override
   AvlNode<T>? leftChild;
+
+  @override
   AvlNode<T>? rightChild;
-
-  void traverseInOrder(void Function(T value) action) {
-    leftChild?.traverseInOrder(action);
-    action(value);
-    rightChild?.traverseInOrder(action);
-  }
-
-  void traversePreOrder(void Function(T value) action) {
-    action(value);
-    leftChild?.traversePreOrder(action);
-    rightChild?.traversePreOrder(action);
-  }
-
-  void traversePostOrder(void Function(T value) action) {
-    leftChild?.traversePostOrder(action);
-    rightChild?.traversePostOrder(action);
-    action(value);
-  }
 
   /// The [height] of a node is the **longest** distance from the current node
   /// to a leaf node.

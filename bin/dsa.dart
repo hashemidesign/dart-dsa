@@ -6,9 +6,7 @@ void main(List<String> arguments) {
   for (var i = 0; i < 15; i++) {
     tree.insert(i);
   }
-  print(tree);
-  tree.remove(11);
-  print(tree);
+  tree.root?.traverseInOrder(print);
 }
 
 BinarySearchTree<int> createExampleTree() {
