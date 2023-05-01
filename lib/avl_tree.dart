@@ -22,7 +22,7 @@
 // right rotation
 // right-left rotation
 
-import 'avl_node.dart';
+import 'nodes/avl_node.dart';
 import 'dart:math' as math;
 
 class AvlTree<E extends Comparable<dynamic>> {

@@ -16,7 +16,7 @@
 // You can create structures known as self-balanced trees which is called as
 // AVL Trees.
 
-import 'package:dsa/binary_node.dart';
+import 'package:dsa/nodes/binary_node.dart';
 
 /// by definition, binary search trees can only hold values that are Comparable.
 ///

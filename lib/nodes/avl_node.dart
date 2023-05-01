@@ -1,4 +1,4 @@
-import 'package:dsa/traversable_binary_node.dart';
+import 'package:dsa/nodes/traversable_binary_node.dart';
 
 class AvlNode<T> extends TraversableBinaryNode<T> {
   AvlNode(this.value);
