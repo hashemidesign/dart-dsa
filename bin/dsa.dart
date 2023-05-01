@@ -17,4 +17,5 @@ void main(List<String> arguments) {
   print('collections starting with "care"');
   final prefixedWithCare = trie.matchPrefix("care");
   print(prefixedWithCare);
+  print(trie.allStrings);
 }

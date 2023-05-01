@@ -4,6 +4,10 @@ class StringTrie {
   // in Dart a String is a collection of UTF-16 code units, so that's why the
   // type for TrieNode is int rather than String.
   TrieNode<int> root = TrieNode(key: null, parent: null);
+  // Storing all texts in a set for further uses.
+  // * By storing all the strings in the trie separately as a set, we've lost 
+  //   the space complexity benefits that trie gives us.
+  final Set<String> _allStrings = {};
 
   // The time complexity of [insertion] is [O(k)], where [k] is the number of
   // [code units] We're trying to insert.
@@ -22,6 +26,8 @@ class StringTrie {
       current = current.children[codeUnit]!;
     }
     current.isTerminating = true;
+    // Add text to allString property.
+    _allStrings.add(text);
   }
 
   // The time complexity of [remove] is [O(k)], where [k] represents the number
@@ -41,6 +47,8 @@ class StringTrie {
     // We set isTerminating to false so the current node can be removed by the
     // loop in the next step.
     current.isTerminating = false;
+    // remove text from allStrings property
+    _allStrings.remove(text);
     // Since nodes can be shared, we don't want to remove code units that
     // belongs to another collection.
     // If there are no other children in the current node, it means that other
@@ -107,4 +115,8 @@ class StringTrie {
     }
     return results;
   }
+
+  Set<String> get allStrings => _allStrings;
+  int get Length => _allStrings.length;
+  bool get isEmpty => _allStrings.isEmpty;
 }
