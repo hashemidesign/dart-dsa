@@ -2,13 +2,19 @@ import 'package:dsa/string_trie.dart';
 
 void main(List<String> arguments) {
   final trie = StringTrie();
-  trie.insert("cut");
-  trie.insert("cute");
-  assert(trie.contains("cut"));
-  assert(trie.contains("cute"));
-  print('\n-------- Removing "cut" ------');
-  trie.remove("cut");
-  assert(!trie.contains("cut"));
-  assert(trie.contains("cute"));
-  print('"cute" is still in the trie');
+  trie.insert("car");
+  trie.insert("card");
+  trie.insert("care");
+  trie.insert("cared");
+  trie.insert("cars");
+  trie.insert("carbs");
+  trie.insert("carapace");
+  trie.insert("cargo");
+  print('collections starting with "car"');
+  final prefixedWithCar = trie.matchPrefix("car");
+  print(prefixedWithCar);
+
+  print('collections starting with "care"');
+  final prefixedWithCare = trie.matchPrefix("care");
+  print(prefixedWithCare);
 }

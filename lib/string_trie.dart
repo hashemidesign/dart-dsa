@@ -68,4 +68,43 @@ class StringTrie {
     }
     return current.isTerminating;
   }
+
+  // [matchPrefix] has a time complexity of [O(k x m)], where k represents the
+  // longest collection matching the prefix and m represents the number of
+  // collections that match the prefix.
+  // Recall that lists have a time complexity of [O(k x n)], where n is the
+  // number of elements in the [entire] collection.
+  // => for large sets of data in which each collection is uniformly
+  //    distributed, tries have far better performance than using lists for
+  //    prefix matching.
+  List<String> matchPrefix(String prefix) {
+    // We start by verifying that the trie contains the prefix. If not, we
+    // return an empty list.
+    var current = root;
+    for (final codeUnit in prefix.codeUnits) {
+      final child = current.children[codeUnit];
+      if (child == null) return [];
+      current = child;
+    }
+    // After we found the node that marks the end of the prefix, we call a
+    // recursive helper method to find all the sequences after the current node.
+    return _moreMatches(prefix, current);
+  }
+
+  List<String> _moreMatches(String prefix, TrieNode<int> node) {
+    // If the current node is terminating one, we add what we've got to the
+    // results.
+    List<String> results = [];
+    if (node.isTerminating) results.add(prefix);
+    // We need to check the current node's children. for every child node, we
+    // recursively call _moreMatches to seek out other terminating nodes.
+    for (final child in node.children.values) {
+      final codeUnit = child!.key!;
+      results.addAll(_moreMatches(
+        '$prefix${String.fromCharCode(codeUnit)}',
+        child,
+      ));
+    }
+    return results;
+  }
 }
