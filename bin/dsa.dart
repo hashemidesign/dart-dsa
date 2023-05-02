@@ -1,5 +1,5 @@
-import 'package:dsa/string_trie.dart';
-import 'package:dsa/trie.dart';
+import 'package:dsa/trees/string_trie.dart';
+import 'package:dsa/trees/trie.dart';
 
 void main(List<String> arguments) {
   final trie = Trie<int, List<int>>();
