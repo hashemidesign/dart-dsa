@@ -1,13 +1,16 @@
-import 'package:dsa/binary_search.dart';
-import 'package:dsa/trees/string_trie.dart';
-import 'package:dsa/trees/trie.dart';
+import 'package:dsa/trees/heap.dart';
 
 void main(List<String> arguments) {
-  final list = [1, 5, 15, 17, 19, 22, 24, 31, 105, 150];
+  final heap = Heap<int>();
+  heap.insert(8);
+  heap.insert(6);
+  heap.insert(5);
+  heap.insert(4);
+  heap.insert(3);
+  heap.insert(2);
+  heap.insert(1);
+  print(heap);
 
-  final search31 = list.indexOf(31);
-  final binarySearch31 = list.binarySearch(31);
-
-  print('indexOf: $search31');
-  print('binarySearch: $binarySearch31');
+  heap.insert(7);
+  print(heap);
 }
