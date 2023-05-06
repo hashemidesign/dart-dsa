@@ -123,6 +123,7 @@ class Heap<E extends Comparable<dynamic>> {
     return value;
   }
 
+  // removing an arbitrary element from a heap is O(log n) operation.
   E? removeAt(int index) {
     final lastIndex = elements.length - 1;
     if (index < 0 || index > lastIndex) return null;
@@ -135,6 +136,17 @@ class Heap<E extends Comparable<dynamic>> {
     _siftDown(index);
     _siftUp(index);
     return value;
+  }
+
+  int indexOf(E value, {int index = 0}) {
+    if (index >= elements.length) return -1;
+    if (_firstHasHigherPeriority(value, elements[index])) return -1;
+    if (value == elements[index]) return index;
+    // Recursively search for the value starting from the left child and then on
+    // the right child. If both search fail, the whole search fails. Return -1.
+    final left = indexOf(value, index: _leftChildIndex(index));
+    if (left != -1) return left;
+    return indexOf(value, index: _rightChildIndex(index));
   }
 
   @override
