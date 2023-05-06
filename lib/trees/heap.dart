@@ -82,6 +82,26 @@ class Heap<E extends Comparable<dynamic>> {
     }
   }
 
+  void _siftDown(int index) {
+    var parent = index;
+    while (true) {
+      final left = _leftChildIndex(parent);
+      final right = _rightChildIndex(parent);
+      // The chosen variable is used to keep track of which index to swap with
+      // the parent. If there is a left child and it has a higher priority than
+      // its parent, make It the chosen.
+      // If there is a right child and it has aa even greater priority, it'll
+      // become the chosenon instead.
+      var chosen = _higherPeriority(left, parent);
+      chosen = _higherPeriority(right, chosen);
+      // If chosen is still parent, then no more sifting is required.
+      if (chosen == parent) return;
+      // Otherwise, swap and sift
+      _swapValues(parent, chosen);
+      parent = chosen;
+    }
+  }
+
   // The overal complexity of [insert] is O(log n). Adding an element to a list
   // takes only O(1) while sifting elements up in a heap takes O(log n).
   void insert(E value) {
@@ -90,6 +110,31 @@ class Heap<E extends Comparable<dynamic>> {
     // Then we start the sifting procedure using the index of the value we just
     // added.
     _siftUp(elements.length - 1);
+  }
+
+  // In order to perform the remove operation, we must first swap the root node
+  // with the last element in the heap. next we sift down the heap to validate
+  // property and shape charectristics.
+  E? remove() {
+    if (isEmpty) return null;
+    _swapValues(0, elements.length - 1);
+    final value = elements.removeLast();
+    _siftDown(0);
+    return value;
+  }
+
+  E? removeAt(int index) {
+    final lastIndex = elements.length - 1;
+    if (index < 0 || index > lastIndex) return null;
+    if (index == lastIndex) return elements.removeLast();
+    // First swap the element with the last element. Then, remove the last
+    // element, saving its value to return at the end.
+    _swapValues(index, lastIndex);
+    final value = elements.removeLast();
+    // Perform a down sift and an up sift to adjust the heap.
+    _siftDown(index);
+    _siftUp(index);
+    return value;
   }
 
   @override
