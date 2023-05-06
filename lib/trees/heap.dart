@@ -34,6 +34,16 @@ class Heap<E extends Comparable<dynamic>> {
 
   Heap({List<E>? elements, this.priority = Priority.max}) {
     this.elements = elements ?? [];
+    _buildHeap();
+  }
+
+  //
+  void _buildHeap() {
+    if (isEmpty) return;
+    final start = elements.length ~/ 2 - 1;
+    for (var i = start; i > 0; i--) {
+      _siftDown(i);
+    }
   }
 
   bool get isEmpty => elements.isEmpty;
